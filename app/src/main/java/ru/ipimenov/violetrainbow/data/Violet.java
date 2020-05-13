@@ -1,9 +1,16 @@
 package ru.ipimenov.violetrainbow.data;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "violets")
 public class Violet {
 
 //    private int violetCounterId; // id по порядку загрузки
 //    private int violetHasImageId; // id если есть картинка, если нет 0
+    @PrimaryKey
+    @NonNull
     private String violetName; // название сорта
     private String violetBreeder; // селекционер
     private String violetYear; // год релиза
