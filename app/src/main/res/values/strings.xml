@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Violet Rainbow</string>
     <string name="senpolia_image">Фотография сенполии</string>
+    <string name="image_violet">Фотография фиалки</string>
+    <string name="label_violet_name">Название:</string>
+    <string name="text_plug">Текст Текст Текст</string>
+    <string name="label_violet_breeder">Селекционер:</string>
+    <string name="label_violet_year">Год создания:</string>
+    <string name="label_violet_overview">Описание:</string>
+    <string name="image_favourite">Изображение папки избранного</string>
 </resources>

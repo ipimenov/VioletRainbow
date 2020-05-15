@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewVioletImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/image_violet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/vat_amazonka_800" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <TextView
+            android:id="@+id/textViewLabelVioletName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_violet_name"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewVioletName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewVioletName" />
+
+        <TextView
+            android:id="@+id/textViewVioletName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/text_plug"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewAddToFavourite" />
+
+        <TextView
+            android:id="@+id/textViewLabelVioletBreeder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_violet_breeder"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewVioletBreeder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewVioletBreeder" />
+
+        <TextView
+            android:id="@+id/textViewVioletBreeder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/text_plug"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVioletName" />
+
+        <TextView
+            android:id="@+id/textViewLabelVioletYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_violet_year"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewVioletYear"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewVioletYear" />
+
+        <TextView
+            android:id="@+id/textViewVioletYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/text_plug"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVioletBreeder" />
+
+        <TextView
+            android:id="@+id/textViewLabelVioletOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_violet_overview"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewVioletOverview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewVioletOverview" />
+
+        <TextView
+            android:id="@+id/textViewVioletOverview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/text_plug"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVioletYear" />
+
+        <ImageView
+            android:id="@+id/imageViewAddToFavourite"
+            android:layout_width="@dimen/size_of_star"
+            android:layout_height="@dimen/size_of_star"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/image_favourite"
+            android:onClick="onClickChangeFavourite"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewVioletImage"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewVioletImage"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewVioletImage"
+            app:srcCompat="@drawable/favourite_remove" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

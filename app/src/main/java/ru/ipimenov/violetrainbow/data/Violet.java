@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 @Entity(tableName = "violets")
 public class Violet {
 
-//    private int violetCounterId; // id по порядку загрузки
-//    private int violetHasImageId; // id если есть картинка, если нет 0
     @PrimaryKey
     @NonNull
     private String violetName; // название сорта
@@ -18,7 +18,7 @@ public class Violet {
     private String violetThumbnailPath; // путь к маленькому изображению
     private String violetImagePath; // путь к большому изображению
 
-    public Violet(String violetName, String violetBreeder, String violetYear, String violetOverview,
+    public Violet(@NotNull String violetName, String violetBreeder, String violetYear, String violetOverview,
                   String violetThumbnailPath, String violetImagePath) {
         this.violetName = violetName;
         this.violetBreeder = violetBreeder;
@@ -28,11 +28,12 @@ public class Violet {
         this.violetImagePath = violetImagePath;
     }
 
+    @NotNull
     public String getVioletName() {
         return violetName;
     }
 
-    public void setVioletName(String violetName) {
+    public void setVioletName(@NotNull String violetName) {
         this.violetName = violetName;
     }
 

@@ -84,7 +84,10 @@ public class ContentUtils {
             Matcher matcherImagePath = patternImagePath.matcher(violetItem);
             String violetImagePath = matcherImagePath.find() ? NetworkUtils.getBaseUrl() + matcherImagePath.group(1) : NetworkUtils.getBaseUrl() + PATH_TO_BLANC;
 
-            Violet violet = new Violet(violetName, violetBreeder, violetYear, violetOverview, violetThumbnailPath, violetImagePath);
+            Violet violet = null;
+            if (violetName != null) {
+                violet = new Violet(violetName, violetBreeder, violetYear, violetOverview, violetThumbnailPath, violetImagePath);
+            }
 //            violetCounterId++;
             result.add(violet);
 //            Log.i("My", violet.getVioletCounterId() + "");
