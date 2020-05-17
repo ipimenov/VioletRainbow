@@ -3,6 +3,7 @@ package ru.ipimenov.violetrainbow;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class CatalogFragment extends Fragment {
     private VioletAdapter violetAdapter;
     private ArrayList<Violet> violets;
 
-    public CatalogFragment(int catalog, int page) {
+    CatalogFragment(int catalog, int page) {
         this.catalog = catalog;
         this.page = page;
     }
@@ -62,12 +63,15 @@ public class CatalogFragment extends Fragment {
         }
         getVioletsFromDatabase();
 
+        recyclerView.setAdapter(violetAdapter);
+
         violetAdapter.setOnVioletThumbnailClickListener(new VioletAdapter.OnVioletThumbnailClickListener() {
             @Override
             public void onVioletThumbnailClick(int position) {
                 Violet violet = violetAdapter.getViolets().get(position);
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra("violetName", violet.getVioletName());
+                intent.putExtra("catalog", catalog);
                 startActivity(intent);
             }
         });
@@ -78,8 +82,6 @@ public class CatalogFragment extends Fragment {
                 Toast.makeText(getActivity(), "Конец списка", Toast.LENGTH_SHORT).show();
             }
         });
-
-        recyclerView.setAdapter(violetAdapter);
 
         return recyclerView;
     }

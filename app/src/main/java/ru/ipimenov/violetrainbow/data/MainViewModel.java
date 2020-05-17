@@ -233,7 +233,7 @@ public class MainViewModel extends AndroidViewModel {
         @Override
         protected FavouriteViolet doInBackground(String... strings) {
             if (strings != null && strings.length > 0) {
-                database.violetDao().getFavouriteVioletByVioletName(strings[0]);
+                return database.violetDao().getFavouriteVioletByVioletName(strings[0]);
             }
             return null;
         }
@@ -244,7 +244,7 @@ public class MainViewModel extends AndroidViewModel {
         @Override
         protected MiniViolet doInBackground(String... strings) {
             if (strings != null && strings.length > 0) {
-                database.violetDao().getMiniVioletByVioletName(strings[0]);
+                return database.violetDao().getMiniVioletByVioletName(strings[0]);
             }
             return null;
         }
@@ -255,7 +255,7 @@ public class MainViewModel extends AndroidViewModel {
         @Override
         protected ForeignViolet doInBackground(String... strings) {
             if (strings != null && strings.length > 0) {
-                database.violetDao().getForeignVioletByVioletName(strings[0]);
+                return database.violetDao().getForeignVioletByVioletName(strings[0]);
             }
             return null;
         }

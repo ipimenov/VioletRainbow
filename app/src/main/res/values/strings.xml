@@ -8,4 +8,8 @@
     <string name="label_violet_year">Год создания:</string>
     <string name="label_violet_overview">Описание:</string>
     <string name="image_favourite">Изображение папки избранного</string>
+    <string name="add_to_favourite">Добавлено в Избранное</string>
+    <string name="remove_from_favourite">Удалено из Избранного</string>
+    <string name="item_main">Главная</string>
+    <string name="item_favourite">Избранное</string>
 </resources>
