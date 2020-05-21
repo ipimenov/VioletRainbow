@@ -1,7 +1,13 @@
 package ru.ipimenov.violetrainbow.utils;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.loader.content.AsyncTaskLoader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,7 +44,7 @@ public class NetworkUtils {
         return BASE_URL;
     }
 
-    private static URL buildURL(int catalog, int page) {
+    public static URL buildURL(int catalog, int page) {
         URL result = null;
         String url = "";
         String pageOfCatalog = "";
@@ -84,6 +90,76 @@ public class NetworkUtils {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static class ContentLoader extends AsyncTaskLoader<String> {
+
+        private Bundle bundle;
+        private OnStartLoadingListener onStartLoadingListener;
+
+        public interface OnStartLoadingListener {
+            void onStartLoading();
+        }
+
+        public void setOnStartLoadingListener(OnStartLoadingListener onStartLoadingListener) {
+            this.onStartLoadingListener = onStartLoadingListener;
+        }
+
+        public ContentLoader(@NonNull Context context, Bundle bundle) {
+            super(context);
+            this.bundle = bundle;
+        }
+
+        @Override
+        protected void onStartLoading() {
+            super.onStartLoading();
+            if (onStartLoadingListener != null) {
+                onStartLoadingListener.onStartLoading();
+            }
+            forceLoad();
+        }
+
+        @Nullable
+        @Override
+        public String loadInBackground() {
+            if (bundle == null) {
+                return null;
+            }
+            String urlAsString = bundle.getString("url");
+            URL url = null;
+            try {
+                url = new URL(urlAsString);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            String result = null;
+            if (url == null) {
+                return null;
+            }
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = connection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                StringBuilder builder = new StringBuilder();
+                String line = reader.readLine();
+                while (line != null) {
+                    builder.append(line);
+                    line = reader.readLine();
+                }
+                result = builder.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+            return result;
+        }
     }
 
     private static class ContentLoadTask extends AsyncTask<URL, Void, String> {

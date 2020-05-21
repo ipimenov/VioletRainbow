@@ -64,7 +64,7 @@ public class ContentUtils {
 
             String violetYear;
             String violetOverview;
-            if (yearWithOverview != null && yearWithOverview.length() > 0) {
+            if (yearWithOverview != null && yearWithOverview.length() > 1) {
                 violetYear = yearWithOverview.substring(4, 5).equals("г") ? yearWithOverview.substring(0, 6) : " ";
                 if (!violetYear.equals(" ")) {
                     violetOverview = yearWithOverview.length() != 6 ? yearWithOverview.substring(7) : " ";

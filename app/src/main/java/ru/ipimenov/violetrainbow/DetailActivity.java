@@ -27,6 +27,7 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView imageViewVioletImage;
     private TextView textViewVioletName;
     private TextView textViewVioletBreeder;
+    private TextView textViewLabelVioletYear;
     private TextView textViewVioletYear;
     private TextView textViewVioletOverview;
     private ImageView imageViewAddToFavourite;
@@ -71,6 +72,7 @@ public class DetailActivity extends AppCompatActivity {
         imageViewVioletImage = findViewById(R.id.imageViewVioletImage);
         textViewVioletName = findViewById(R.id.textViewVioletName);
         textViewVioletBreeder = findViewById(R.id.textViewVioletBreeder);
+        textViewLabelVioletYear = findViewById(R.id.textViewLabelVioletYear);
         textViewVioletYear = findViewById(R.id.textViewVioletYear);
         textViewVioletOverview = findViewById(R.id.textViewVioletOverview);
         imageViewAddToFavourite = findViewById(R.id.imageViewAddToFavourite);
@@ -88,7 +90,12 @@ public class DetailActivity extends AppCompatActivity {
         Picasso.get().load(violet.getVioletImagePath()).into(imageViewVioletImage);
         textViewVioletName.setText(violet.getVioletName());
         textViewVioletBreeder.setText(violet.getVioletBreeder());
-        textViewVioletYear.setText(violet.getVioletYear());
+        if (!violet.getVioletYear().equals(" ")) {
+            textViewVioletYear.setText(violet.getVioletYear());
+        } else {
+            textViewLabelVioletYear.setVisibility(View.GONE);
+            textViewVioletYear.setVisibility(View.GONE);
+        }
         textViewVioletOverview.setText(violet.getVioletOverview());
         setFavourite();
     }

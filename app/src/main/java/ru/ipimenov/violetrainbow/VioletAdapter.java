@@ -51,7 +51,7 @@ public class VioletAdapter extends RecyclerView.Adapter<VioletAdapter.VioletView
 
     @Override
     public void onBindViewHolder(@NonNull VioletViewHolder holder, int position) {
-        if (position > violets.size() - 3 && onReachEndListener != null) {
+        if (violets.size() >= 10 && position > violets.size() - 3 && onReachEndListener != null) {
             onReachEndListener.onReachEnd();
         }
         Violet violet = violets.get(position);
@@ -65,7 +65,7 @@ public class VioletAdapter extends RecyclerView.Adapter<VioletAdapter.VioletView
 
     class VioletViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageViewVioletThumbnail;
+        private ImageView imageViewVioletThumbnail;
 
         public VioletViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +79,11 @@ public class VioletAdapter extends RecyclerView.Adapter<VioletAdapter.VioletView
                 }
             });
         }
+    }
+
+    public void clear() {
+        this.violets.clear();
+        notifyDataSetChanged();
     }
 
     public List<Violet> getViolets() {

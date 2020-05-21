@@ -1,10 +1,12 @@
 package ru.ipimenov.violetrainbow;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,9 +26,11 @@ import ru.ipimenov.violetrainbow.utils.NetworkUtils;
 
 public class MainActivity extends AppCompatActivity {
 
-    TabLayout tabLayoutTabs;
-    Toolbar toolBar;
-    ViewPager viewPager;
+    private TabLayout tabLayoutTabs;
+    private Toolbar toolBar;
+    private ViewPager viewPager;
+    @SuppressLint("StaticFieldLeak")
+    public static ProgressBar progressBarLoading;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        progressBarLoading = findViewById(R.id.progressBarLoading);
         toolBar = findViewById(R.id.toolBar);
         setSupportActionBar(toolBar);
         viewPager = findViewById(R.id.viewPager);
@@ -69,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        adapter.addFragment(new CatalogFragment(NetworkUtils.RU_UA_SELECTION, 2), "Российско-Украинская селекция");
-        adapter.addFragment(new CatalogFragment(NetworkUtils.FOREIGN_SELECTION, 2), "Зарубежная селекция");
-        adapter.addFragment(new CatalogFragment(NetworkUtils.MINI_SELECTION, 2), "Миниатюры и трейлеры");
+        adapter.addFragment(new CatalogFragment(NetworkUtils.RU_UA_SELECTION, 1), "Российско-Украинская селекция");
+        adapter.addFragment(new CatalogFragment(NetworkUtils.FOREIGN_SELECTION, 1), "Зарубежная селекция");
+        adapter.addFragment(new CatalogFragment(NetworkUtils.MINI_SELECTION, 1), "Миниатюры и трейлеры");
         viewPager.setAdapter(adapter);
     }
 
