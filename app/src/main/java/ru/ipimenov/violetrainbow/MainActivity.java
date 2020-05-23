@@ -29,6 +29,19 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayoutTabs;
     private Toolbar toolBar;
     private ViewPager viewPager;
+//------------------
+//    private Adapter adapter;
+//    private CatalogFragment ru_uaFragment;
+//    private CatalogFragment foreignFragment;
+//    private CatalogFragment miniFragment;
+
+//    private static String RU_UA_FRAGMENT_INSTANCE_NAME = "ru_uaFragment";
+//    private static String FOREIGN_FRAGMENT_INSTANCE_NAME = "foreignFragment";
+//    private static String MINI_FRAGMENT_INSTANCE_NAME = "miniFragment";
+//    CatalogFragment ru_uaFragment = null;
+//    CatalogFragment foreignFragment = null;
+//    CatalogFragment miniFragment = null;
+    //-------------------------
     @SuppressLint("StaticFieldLeak")
     public static ProgressBar progressBarLoading;
 
@@ -59,10 +72,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //--------------------------------------
+//        adapter = new Adapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+//        ru_uaFragment = new CatalogFragment(NetworkUtils.RU_UA_SELECTION, 1);
+//        foreignFragment = new CatalogFragment(NetworkUtils.FOREIGN_SELECTION, 1);
+//        miniFragment = new CatalogFragment(NetworkUtils.MINI_SELECTION, 1);
+//        adapter.addFragment(ru_uaFragment, "Российско-Украинская селекция");
+//        adapter.addFragment(foreignFragment, "Зарубежная селекция");
+//        adapter.addFragment(miniFragment, "Миниатюры и трейлеры");
+        viewPager = findViewById(R.id.viewPager);
+//        viewPager.setAdapter(adapter);
+        //---------------------------------------
         progressBarLoading = findViewById(R.id.progressBarLoading);
         toolBar = findViewById(R.id.toolBar);
         setSupportActionBar(toolBar);
-        viewPager = findViewById(R.id.viewPager);
+
         setupViewPager(viewPager);
 
         tabLayoutTabs = findViewById(R.id.tabLayoutTabs);
@@ -72,11 +96,35 @@ public class MainActivity extends AppCompatActivity {
 
     // Добавляем фрагменты во вкладки
     private void setupViewPager(ViewPager viewPager) {
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        ru_uaFragment = (CatalogFragment) fragmentManager.findFragmentByTag(RU_UA_FRAGMENT_INSTANCE_NAME);
+//        foreignFragment = (CatalogFragment) fragmentManager.findFragmentByTag(FOREIGN_FRAGMENT_INSTANCE_NAME);
+//        miniFragment = (CatalogFragment) fragmentManager.findFragmentByTag(MINI_FRAGMENT_INSTANCE_NAME);
+//        Adapter fragmentAdapter = new Adapter(fragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+//        if (ru_uaFragment == null ) {
+//            ru_uaFragment = new CatalogFragment(NetworkUtils.RU_UA_SELECTION, 1);
+//        }
+//        if (foreignFragment == null ) {
+//            foreignFragment = new CatalogFragment(NetworkUtils.FOREIGN_SELECTION, 1);
+//        }
+//        if (miniFragment == null ) {
+//            miniFragment = new CatalogFragment(NetworkUtils.MINI_SELECTION, 1);
+//        }
+//        fragmentAdapter.addFragment(ru_uaFragment, "Российско-Украинская селекция");
+//        fragmentAdapter.addFragment(foreignFragment, "Зарубежная селекция");
+//        fragmentAdapter.addFragment(miniFragment, "Миниатюры и трейлеры");
+//        viewPager.setAdapter(fragmentAdapter);
         Adapter adapter = new Adapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        adapter.addFragment(new CatalogFragment(NetworkUtils.RU_UA_SELECTION, 1), "Российско-Украинская селекция");
-        adapter.addFragment(new CatalogFragment(NetworkUtils.FOREIGN_SELECTION, 1), "Зарубежная селекция");
-        adapter.addFragment(new CatalogFragment(NetworkUtils.MINI_SELECTION, 1), "Миниатюры и трейлеры");
+//        CatalogFragment ru_uaFragment = new CatalogFragment(NetworkUtils.RU_UA_SELECTION, 1);
+//        CatalogFragment foreignFragment = new CatalogFragment(NetworkUtils.FOREIGN_SELECTION, 1);
+//        CatalogFragment miniFragment = new CatalogFragment(NetworkUtils.MINI_SELECTION, 1);
+//        adapter.addFragment(ru_uaFragment, "Российско-Украинская селекция");
+//        adapter.addFragment(foreignFragment, "Зарубежная селекция");
+//        adapter.addFragment(miniFragment, "Миниатюры и трейлеры");
+        adapter.addFragment(new CatalogFragment(NetworkUtils.RU_UA_SELECTION), "Российско-Украинская селекция");
+        adapter.addFragment(new CatalogFragment(NetworkUtils.FOREIGN_SELECTION), "Зарубежная селекция");
+        adapter.addFragment(new CatalogFragment(NetworkUtils.MINI_SELECTION), "Миниатюры и трейлеры");
         viewPager.setAdapter(adapter);
     }
 

@@ -3,6 +3,7 @@ package ru.ipimenov.violetrainbow;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,52 +35,41 @@ import ru.ipimenov.violetrainbow.utils.NetworkUtils;
 public class CatalogFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
 
     private int catalog;
-    private int page;
+    private int page = 1;
 
     private MainViewModel viewModel;
     private VioletAdapter violetAdapter;
     private ArrayList<Violet> violets;
+    private RecyclerView recyclerView;
 
-    private static final int LOADER_ID = 133;
     private LoaderManager loaderManager;
 
     private ProgressBar progressBarLoading;
     private static boolean isLoading = false;
 
-    CatalogFragment(int catalog, int page) {
+    public CatalogFragment(int catalog) {
         this.catalog = catalog;
-        this.page = page;
+//        this.page = page;
+        this.setRetainInstance(true);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         progressBarLoading = MainActivity.progressBarLoading;
 
         loaderManager = LoaderManager.getInstance(this);
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view,
-                container, false);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), getColumnCount()));
 
         violetAdapter = new VioletAdapter();
 
         downloadData();
-
-//        URL url = NetworkUtils.buildURL(catalog, page);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("url", url.toString());
-//        loaderManager.restartLoader(LOADER_ID, bundle, this);
-
-//        String content = NetworkUtils.getContentFromNetwork(catalog, page);
-//        violets = ContentUtils.getVioletsFromContent(content);
-
-//        if (violets != null && !violets.isEmpty()) {
-//            setVioletsToDatabase();
-//        }
         getVioletsFromDatabase();
 
         recyclerView.setAdapter(violetAdapter);
@@ -100,7 +90,6 @@ public class CatalogFragment extends Fragment implements LoaderManager.LoaderCal
             public void onReachEnd() {
                 if (!isLoading) {
                     downloadData();
-//                    Toast.makeText(getActivity(), "Конец списка", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -108,39 +97,46 @@ public class CatalogFragment extends Fragment implements LoaderManager.LoaderCal
         return recyclerView;
     }
 
+    private int getColumnCount() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = (int) (displayMetrics.widthPixels / displayMetrics.density);
+        return Math.max(width / 185, 2);
+    }
+
     private void setVioletsToDatabase() {
         switch (catalog) {
             case NetworkUtils.RU_UA_SELECTION:
                 if (page == 1) {
                     viewModel.deleteAllRuUaViolets();
-                    violetAdapter.clear();
+//                    violetAdapter.clear();
                 }
                 for (Violet violet : violets) {
                     viewModel.insertRuUaViolet(violet);
                 }
-                violetAdapter.addViolets(violets);
+//                violetAdapter.addViolets(violets);
                 page++;
                 break;
             case NetworkUtils.FOREIGN_SELECTION:
                 if (page == 1) {
                     viewModel.deleteAllForeignViolets();
-                    violetAdapter.clear();
+//                    violetAdapter.clear();
                 }
                 for (Violet violet : violets) {
                     viewModel.insertForeignViolet(new ForeignViolet(violet));
                 }
-                violetAdapter.addViolets(violets);
+//                violetAdapter.addViolets(violets);
                 page++;
                 break;
             case NetworkUtils.MINI_SELECTION:
                 if (page == 1) {
                     viewModel.deleteAllMiniViolets();
-                    violetAdapter.clear();
+//                    violetAdapter.clear();
                 }
                 for (Violet violet : violets) {
                     viewModel.insertMiniViolet(new MiniViolet(violet));
                 }
-                violetAdapter.addViolets(violets);
+//                violetAdapter.addViolets(violets);
                 page++;
                 break;
         }
@@ -154,9 +150,9 @@ public class CatalogFragment extends Fragment implements LoaderManager.LoaderCal
                 violetsFromLiveDataR.observe(this, new Observer<List<Violet>>() {
                     @Override
                     public void onChanged(List<Violet> violets) {
-                        if (page == 1) {
+//                        if (page == 1) {
                             violetAdapter.setViolets(violets);
-                        }
+//                        }
                     }
                 });
                 break;
@@ -166,9 +162,9 @@ public class CatalogFragment extends Fragment implements LoaderManager.LoaderCal
                     @Override
                     public void onChanged(List<ForeignViolet> violets) {
                         List<Violet> violetsF = new ArrayList<Violet>(violets);
-                        if (page == 1) {
+//                        if (page == 1) {
                             violetAdapter.setViolets(violetsF);
-                        }
+//                        }
                     }
                 });
                 break;
@@ -178,9 +174,9 @@ public class CatalogFragment extends Fragment implements LoaderManager.LoaderCal
                     @Override
                     public void onChanged(List<MiniViolet> violets) {
                         List<Violet> violetsM = new ArrayList<Violet>(violets);
-                        if (page == 1) {
+//                        if (page == 1) {
                             violetAdapter.setViolets(violetsM);
-                        }
+//                        }
                     }
                 });
                 break;
