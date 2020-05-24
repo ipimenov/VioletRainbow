@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,8 +80,8 @@ public class CatalogFragment extends Fragment implements LoaderManager.LoaderCal
             public void onVioletThumbnailClick(int position) {
                 Violet violet = violetAdapter.getViolets().get(position);
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("violetName", violet.getVioletName());
-                intent.putExtra("catalog", catalog);
+                intent.putExtra(DetailActivity.VIOLET_NAME, violet.getVioletName());
+                intent.putExtra(DetailActivity.VIOLET_CATALOG, catalog);
                 startActivity(intent);
             }
         });
@@ -101,6 +102,7 @@ public class CatalogFragment extends Fragment implements LoaderManager.LoaderCal
         DisplayMetrics displayMetrics = new DisplayMetrics();
         Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = (int) (displayMetrics.widthPixels / displayMetrics.density);
+        Log.i("My", "Ширина экрана в dp: " + width);
         return Math.max(width / 185, 2);
     }
 

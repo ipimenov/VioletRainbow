@@ -8,13 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.squareup.picasso.Picasso;
 
 import ru.ipimenov.violetrainbow.data.FavouriteViolet;
@@ -24,7 +24,10 @@ import ru.ipimenov.violetrainbow.utils.NetworkUtils;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private ImageView imageViewVioletImage;
+    public static final String VIOLET_NAME = "violet_name";
+    public static final String VIOLET_CATALOG = "violet_catalog";
+
+    private ImageView imageViewVioletImageC;
     private TextView textViewVioletName;
     private TextView textViewVioletBreeder;
     private TextView textViewLabelVioletYear;
@@ -62,14 +65,18 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail_collapsing);
 
-        Toolbar toolBar = findViewById(R.id.toolBar);
-        setSupportActionBar(toolBar);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolBarC));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // Set Collapsing Toolbar layout to the screen
+        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsingToolbarLayout);
+        collapsingToolbar.setTitle(violetName);
 
-        imageViewVioletImage = findViewById(R.id.imageViewVioletImage);
+        // Set title of Detail page
+        imageViewVioletImageC = findViewById(R.id.imageViewVioletImageC);
         textViewVioletName = findViewById(R.id.textViewVioletName);
         textViewVioletBreeder = findViewById(R.id.textViewVioletBreeder);
         textViewLabelVioletYear = findViewById(R.id.textViewLabelVioletYear);
@@ -78,16 +85,16 @@ public class DetailActivity extends AppCompatActivity {
         imageViewAddToFavourite = findViewById(R.id.imageViewAddToFavourite);
 
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("violetName") && intent.hasExtra("catalog")) {
-            violetName = intent.getStringExtra("violetName");
-            catalog = intent.getIntExtra("catalog", -1);
+        if (intent != null && intent.hasExtra(VIOLET_NAME) && intent.hasExtra(VIOLET_CATALOG)) {
+            violetName = intent.getStringExtra(VIOLET_NAME);
+            catalog = intent.getIntExtra(VIOLET_CATALOG, -1);
         } else {
             finish();
         }
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         violet = getVioletFromCatalog();
-        Picasso.get().load(violet.getVioletImagePath()).into(imageViewVioletImage);
+        Picasso.get().load(violet.getVioletImagePath()).into(imageViewVioletImageC);
         textViewVioletName.setText(violet.getVioletName());
         textViewVioletBreeder.setText(violet.getVioletBreeder());
         if (!violet.getVioletYear().equals(" ")) {
@@ -97,7 +104,7 @@ public class DetailActivity extends AppCompatActivity {
             textViewVioletYear.setVisibility(View.GONE);
         }
         textViewVioletOverview.setText(violet.getVioletOverview());
-        setFavourite();
+//        setFavourite();
     }
 
     private Violet getVioletFromCatalog() {
@@ -120,24 +127,24 @@ public class DetailActivity extends AppCompatActivity {
         }
         return violet;
     }
-
-    public void onClickChangeFavourite(View view) {
-        if (favouriteViolet == null) {
-            viewModel.insertFavouriteViolet(new FavouriteViolet(violet));
-            Toast.makeText(this, R.string.add_to_favourite, Toast.LENGTH_SHORT).show();
-        } else {
-            viewModel.deleteFavouriteViolet(favouriteViolet);
-            Toast.makeText(this, R.string.remove_from_favourite, Toast.LENGTH_SHORT).show();
-        }
-        setFavourite();
-    }
-
-    private void setFavourite() {
-        favouriteViolet = viewModel.getFavouriteVioletByVioletName(violet.getVioletName());
-        if (favouriteViolet == null) {
-            imageViewAddToFavourite.setImageResource(R.drawable.favourite_add_to);
-        } else {
-            imageViewAddToFavourite.setImageResource(R.drawable.favourite_remove);
-        }
-    }
+//
+//    public void onClickChangeFavourite(View view) {
+//        if (favouriteViolet == null) {
+//            viewModel.insertFavouriteViolet(new FavouriteViolet(violet));
+//            Toast.makeText(this, R.string.add_to_favourite, Toast.LENGTH_SHORT).show();
+//        } else {
+//            viewModel.deleteFavouriteViolet(favouriteViolet);
+//            Toast.makeText(this, R.string.remove_from_favourite, Toast.LENGTH_SHORT).show();
+//        }
+//        setFavourite();
+//    }
+//
+//    private void setFavourite() {
+//        favouriteViolet = viewModel.getFavouriteVioletByVioletName(violet.getVioletName());
+//        if (favouriteViolet == null) {
+//            imageViewAddToFavourite.setImageResource(R.drawable.favourite_add_to);
+//        } else {
+//            imageViewAddToFavourite.setImageResource(R.drawable.favourite_remove);
+//        }
+//    }
 }
