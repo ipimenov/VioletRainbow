@@ -73,7 +73,6 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Set Collapsing Toolbar layout to the screen
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsingToolbarLayout);
-        collapsingToolbar.setTitle(violetName);
 
         // Set title of Detail page
         imageViewVioletImageC = findViewById(R.id.imageViewVioletImageC);
@@ -91,6 +90,8 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             finish();
         }
+
+        collapsingToolbar.setTitle(violetName);
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         violet = getVioletFromCatalog();
