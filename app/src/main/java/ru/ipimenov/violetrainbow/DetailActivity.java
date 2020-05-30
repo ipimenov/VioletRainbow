@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +33,10 @@ public class DetailActivity extends AppCompatActivity {
     private TextView textViewVioletBreeder;
     private TextView textViewLabelVioletYear;
     private TextView textViewVioletYear;
+    private TextView textViewLabelVioletOverview;
     private TextView textViewVioletOverview;
-    private ImageView imageViewAddToFavourite;
+    private ImageView imageViewAddToFavouriteC;
+    private ImageView imageViewAddToFavouriteBottomC;
 
     private String violetName;
     private int catalog;
@@ -80,8 +83,10 @@ public class DetailActivity extends AppCompatActivity {
         textViewVioletBreeder = findViewById(R.id.textViewVioletBreeder);
         textViewLabelVioletYear = findViewById(R.id.textViewLabelVioletYear);
         textViewVioletYear = findViewById(R.id.textViewVioletYear);
+        textViewLabelVioletOverview = findViewById(R.id.textViewLabelVioletOverview);
         textViewVioletOverview = findViewById(R.id.textViewVioletOverview);
-        imageViewAddToFavourite = findViewById(R.id.imageViewAddToFavourite);
+        imageViewAddToFavouriteC = findViewById(R.id.imageViewAddToFavouriteC);
+        imageViewAddToFavouriteBottomC = findViewById(R.id.imageViewAddToFavouriteBottomC);
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(VIOLET_NAME) && intent.hasExtra(VIOLET_CATALOG)) {
@@ -104,8 +109,13 @@ public class DetailActivity extends AppCompatActivity {
             textViewLabelVioletYear.setVisibility(View.GONE);
             textViewVioletYear.setVisibility(View.GONE);
         }
-        textViewVioletOverview.setText(violet.getVioletOverview());
-//        setFavourite();
+        if (!violet.getVioletOverview().equals(" ")) {
+            textViewVioletOverview.setText(violet.getVioletOverview());
+        } else {
+            textViewLabelVioletOverview.setVisibility(View.GONE);
+            textViewVioletOverview.setVisibility(View.GONE);
+        }
+        setFavourite();
     }
 
     private Violet getVioletFromCatalog() {
@@ -128,24 +138,26 @@ public class DetailActivity extends AppCompatActivity {
         }
         return violet;
     }
-//
-//    public void onClickChangeFavourite(View view) {
-//        if (favouriteViolet == null) {
-//            viewModel.insertFavouriteViolet(new FavouriteViolet(violet));
-//            Toast.makeText(this, R.string.add_to_favourite, Toast.LENGTH_SHORT).show();
-//        } else {
-//            viewModel.deleteFavouriteViolet(favouriteViolet);
-//            Toast.makeText(this, R.string.remove_from_favourite, Toast.LENGTH_SHORT).show();
-//        }
-//        setFavourite();
-//    }
-//
-//    private void setFavourite() {
-//        favouriteViolet = viewModel.getFavouriteVioletByVioletName(violet.getVioletName());
-//        if (favouriteViolet == null) {
-//            imageViewAddToFavourite.setImageResource(R.drawable.favourite_add_to);
-//        } else {
-//            imageViewAddToFavourite.setImageResource(R.drawable.favourite_remove);
-//        }
-//    }
+
+    public void onClickChangeFavourite(View view) {
+        if (favouriteViolet == null) {
+            viewModel.insertFavouriteViolet(new FavouriteViolet(violet));
+            Toast.makeText(this, R.string.add_to_favourite, Toast.LENGTH_SHORT).show();
+        } else {
+            viewModel.deleteFavouriteViolet(favouriteViolet);
+            Toast.makeText(this, R.string.remove_from_favourite, Toast.LENGTH_SHORT).show();
+        }
+        setFavourite();
+    }
+
+    private void setFavourite() {
+        favouriteViolet = viewModel.getFavouriteVioletByVioletName(violet.getVioletName());
+        if (favouriteViolet == null) {
+            imageViewAddToFavouriteC.setImageResource(R.drawable.favourite_add_to);
+            imageViewAddToFavouriteBottomC.setImageResource(R.drawable.favourite_add_to);
+        } else {
+            imageViewAddToFavouriteC.setImageResource(R.drawable.favourite_remove);
+            imageViewAddToFavouriteBottomC.setImageResource(R.drawable.favourite_remove);
+        }
+    }
 }

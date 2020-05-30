@@ -79,8 +79,8 @@ public class FavouriteActivity extends AppCompatActivity {
             public void onVioletThumbnailClick(int position) {
                 Violet violet = violetAdapter.getViolets().get(position);
                 Intent intent = new Intent(FavouriteActivity.this, DetailActivity.class);
-                intent.putExtra("violetName", violet.getVioletName());
-                intent.putExtra("catalog", FAVOURITE_CATALOG);
+                intent.putExtra(DetailActivity.VIOLET_NAME, violet.getVioletName());
+                intent.putExtra(DetailActivity.VIOLET_CATALOG, FAVOURITE_CATALOG);
                 startActivity(intent);
             }
         });
