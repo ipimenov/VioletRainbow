@@ -5,4 +5,8 @@
     <dimen name="md_keylines">16dp</dimen>
     <dimen name="app_bar_height">270dp</dimen>
     <dimen name="mb_label">8dp</dimen>
+    <dimen name="tile_padding">1dp</dimen>
+    <dimen name="article_titles">20sp</dimen>
+    <dimen name="mb_violet_name">16dp</dimen>
+    <dimen name="thumbnail_violet_name">18sp</dimen>
 </resources>

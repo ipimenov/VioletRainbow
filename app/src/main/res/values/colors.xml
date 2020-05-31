@@ -5,6 +5,8 @@
     <color name="colorPrimaryDark">#053054</color>
     <color name="colorAccent">#fdd900</color>
     <color name="colorAccentDark">#fc7d34</color>
+    <color name="dark_grey">#424242</color>
+    <color name="colorDarkGreyAlpha03">#54424242</color>
 <!--    <color name="colorAccentDark">#1E1A8B</color>-->
 <!--    <color name="colorAccent">#725363</color>-->
     <color name="colorWhite">#FFFFFF</color>

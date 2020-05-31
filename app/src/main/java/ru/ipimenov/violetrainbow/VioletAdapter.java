@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,6 +57,7 @@ public class VioletAdapter extends RecyclerView.Adapter<VioletAdapter.VioletView
         }
         Violet violet = violets.get(position);
         Picasso.get().load(violet.getVioletThumbnailPath()).into(holder.imageViewVioletThumbnail);
+        holder.imageViewVioletThumbnailName.setText(violet.getVioletName());
     }
 
     @Override
@@ -66,10 +68,12 @@ public class VioletAdapter extends RecyclerView.Adapter<VioletAdapter.VioletView
     class VioletViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageViewVioletThumbnail;
+        private TextView imageViewVioletThumbnailName;
 
         public VioletViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewVioletThumbnail = itemView.findViewById(R.id.imageViewVioletThumbnail);
+            imageViewVioletThumbnailName = itemView.findViewById(R.id.imageViewVioletThumbnailName);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
